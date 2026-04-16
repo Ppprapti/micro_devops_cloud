@@ -27,13 +27,14 @@ public class Article {
     private Boolean paid;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status=Status.DRAFT;
 
     private LocalDateTime publishedAt;
     private LocalDateTime createdAt;
 
     private Double rating;
     private Double price;
+    private Integer readingMinutes;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

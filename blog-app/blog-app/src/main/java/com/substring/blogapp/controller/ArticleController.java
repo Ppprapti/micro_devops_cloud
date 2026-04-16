@@ -5,6 +5,8 @@ package com.substring.blogapp.controller;
 
 import com.substring.blogapp.dto.ArticleDto;
 import com.substring.blogapp.service.ArticleService;
+import com.substring.blogapp.service.impl.ArticleServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +25,12 @@ import java.util.List;
 //@Controller
 @RestController
 @RequestMapping("/api/v1/articles")
+@RequiredArgsConstructor
 public class ArticleController {
 
 
     private final ArticleService articleService;
 
-    public ArticleController(ArticleService articleService) {
-        this.articleService = articleService;
-    }
 
     //we can not write logics directly in class
 
@@ -73,6 +73,17 @@ public class ArticleController {
     public ResponseEntity<Void> deleteArticle(@PathVariable Long articleId) {
         articleService.deleteArticle(articleId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //create api to get articles of specific category
+    @GetMapping("/category/{categoryId}")
+    public List<ArticleDto> getArticlesByCategory(@PathVariable("categoryId") Long categoryId) {
+        return articleService.getArticleOfCategory(categoryId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<ArticleDto> getArticlesByUser(@PathVariable("userId") Long userId) {
+        return articleService.getArticleOfUser(userId);
     }
 
 }
