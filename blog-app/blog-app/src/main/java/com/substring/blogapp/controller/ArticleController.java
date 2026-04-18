@@ -1,11 +1,7 @@
 package com.substring.blogapp.controller;
 
-
-//request handle for articles
-
 import com.substring.blogapp.dto.ArticleDto;
 import com.substring.blogapp.service.ArticleService;
-import com.substring.blogapp.service.impl.ArticleServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,16 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/*
-
-    @Controller-> accept and return the view name:-->  html page
-
-
-    @RestController--> accept the request but return the data in json automatically
-
-    @RestController= @Controller + @ResponseBody--> send the data directly to response:
- */
-//@Controller
 @RestController
 @RequestMapping("/api/v1/articles")
 @RequiredArgsConstructor
@@ -30,13 +16,6 @@ public class ArticleController {
 
 
     private final ArticleService articleService;
-
-
-    //we can not write logics directly in class
-
-    //methods
-    //url: api/v1/articles/create
-
 
     //@ResponseBody
     //@RequestMapping(value = "/",method = RequestMethod.POST)
@@ -46,19 +25,11 @@ public class ArticleController {
         return new ResponseEntity<>(articleDto1, HttpStatus.CREATED);
     }
 
-    //url: api/v1/articles/update
-//    @RequestMapping("/update")
-//    public String updateArticles(){
-//        return "articles updated";
-//    }
-
     @PutMapping("/{articleId}")
     public ArticleDto update(@PathVariable Long articleId, @RequestBody ArticleDto articleDto) {
         return articleService.updateArticle(articleDto, articleId);
     }
 
-    //url: api/v1/articles/get
-//    @RequestMapping("/get")
     @GetMapping("/{articleId}")
     public ArticleDto getArticle(@PathVariable("articleId") Long articleId) {
         return articleService.getArticle(articleId);
